@@ -26,7 +26,10 @@ SECRET_KEY = 'django-insecure-beeverqlt*$_i3m#j$=n*g1_p#zmx()6bkguue8%=)kjyj8dh%
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "webserver",
+    "127.0.0.1",
+]
 
 
 # Application definition
@@ -77,7 +80,7 @@ WSGI_APPLICATION = 'task_manager.wsgi.application'
 DATABASES = {
     'default': dj_database_url.config(
         # Replace this value with your local database's connection string.
-        default='postgresql://postgres:postgres@localhost:5432/mysite',
+        default='postgresql://hexlet52db_user:CNzsdbWg3oF2LC9A7nisrpzJepEE5d2k@dpg-d3h7vkndiees73a8d7qg-a.frankfurt-postgres.render.com/hexlet52db',
         conn_max_age=600
     )
 }
