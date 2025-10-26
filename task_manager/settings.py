@@ -86,18 +86,18 @@ WSGI_APPLICATION = 'task_manager.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    #'default': dj_database_url.config(
-        #default='postgresql://hexlet52db_user:CNzsdbWg3oF2LC9A7nisrpzJepEE5d2k@dpg-d3h7vkndiees73a8d7qg-a.frankfurt-postgres.render.com/hexlet52db',
-        #conn_max_age=600
-    #)
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
-    }
+    'default': dj_database_url.config(
+        default='postgresql://hexlet52db_user:CNzsdbWg3oF2LC9A7nisrpzJepEE5d2k@dpg-d3h7vkndiees73a8d7qg-a.frankfurt-postgres.render.com/hexlet52db',
+        conn_max_age=600
+    )
+    #"default": {
+        #"ENGINE": "django.db.backends.sqlite3",
+        #"NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+    #}
 }
 
-db_from_env = dj_database_url.config(conn_max_age=600)
-DATABASES["default"].update(db_from_env)
+#db_from_env = dj_database_url.config(conn_max_age=600)
+#DATABASES["default"].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
