@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.contrib.auth.decorators import
 from django.views import View
 from .forms import SignUpForm, UserUpdateForm
 
