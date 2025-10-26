@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login
+from django.contrib import messages
+from django.contrib.auth.decorators import
 from django.views import View
-from .forms import SignUpForm
+from .forms import SignUpForm, UserUpdateForm
 
 from task_manager.users.models import CustomUser
 
@@ -9,31 +10,26 @@ from task_manager.users.models import CustomUser
 class IndexView(View):
     def get(self, request, *args, **kwargs):
         users = CustomUser.objects.all()
-        return render(
-            request,
-            "users/index.html",
-            context={
-                "users": users,
-            },
-        )
+        return render(request, "users/index.html", context={"users": users,})
 
-
-def signup_view(request):
-    if request.method == 'POST':
+class UserFormCreateView(View):
+    def get(self, request, *args, **kwargs):
+        form = SignUpForm()
+        return render(request, 'users/create.html', {'form': form})
+    
+    def post(self, request, *args, **kwargs):
         form = SignUpForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, "Пользователь успешно зарегистрирован")
             return redirect('login')
-    else:
-        form = SignUpForm()
-    return render(request, 'users/create.html', {'form': form})
-
+        return render(request, 'users/create.html', {'form': form})
 
 class UserFormUpdateView(View):
     def get(self, request, *args, **kwargs):
         user_id = kwargs.get("id")
         user = CustomUser.objects.get(id=user_id)
-        form = SignUpForm(instance=user)
+        form = UserUpdateForm(instance=user)
         return render(
             request, "users/update.html", {"form": form, "user_id": user_id}
         )
@@ -41,10 +37,28 @@ class UserFormUpdateView(View):
     def post(self, request, *args, **kwargs):
         user_id = kwargs.get("id")
         user = CustomUser.objects.get(id=user_id)
-        form = SignUpForm(request.POST, instance=auser)
+        form = SignUpForm(request.POST, instance=user)
         if form.is_valid():
             form.save()
+            messages.success(request, "Пользователь успешно изменён")
             return redirect("users")
         return render(
             request, "users/update.html", {"form": form, "user_id": user_id}
         )
+
+class UserFormDeleteView(View):
+    def get(self, request, *args, **kwargs):
+        user_id = kwargs.get("id")
+        user = CustomUser.objects.get(id=user_id)
+        if user:
+            return render(
+                request, "users/delete.html", {"user": user}
+            )
+    
+    def post(self, request, *args, **kwargs):
+        user_id = kwargs.get("id")
+        user = CustomUser.objects.get(id=user_id)
+        if user:
+            user.delete()
+        messages.success(request, "Пользователь успешно удалён")
+        return redirect("users")

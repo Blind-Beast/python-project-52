@@ -9,3 +9,9 @@ build:
 
 render-start:
 	gunicorn task_manager.wsgi
+
+runserver:
+	uv run python3 manage.py runserver
+
+shell:
+	uv run manage.py shell_plus --ipython

@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .users.forms import LoginForm
-from django.contrib.auth import login, authenticate
+from django.contrib import messages
+from django.contrib.auth import login, authenticate, logout
 
 
 def index(request):
@@ -13,8 +14,14 @@ def login_view(request):
         if form.is_valid():
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
-            user = authenticate(username=username, password=password) # Проверяем учетные данные
+            user = authenticate(username=username, password=password)
             if user is not None:
-                login(request, user)     # Выполняем вход
-                return redirect('users')  # Перенаправляем на главную страницу
+                login(request, user)
+                messages.success(request, "Вы залогинены")
+                return redirect('/')
     return render(request, 'login.html', {'form': form})
+
+def logout_view(request):
+    logout(request)
+    messages.success(request, "Вы разлогинены")
+    return redirect('/')

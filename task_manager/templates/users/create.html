@@ -4,9 +4,39 @@
 <h1 class="my-4">Регистрация</h1>
 <form action="{% url 'users_create' %}" method="post">
     {% csrf_token %}
-    <table border="1">
-        {{ form }}
-    </table>
+    <div class="mb-3">
+        {{ form.first_name.label_tag }}
+        {{ form.first_name }}
+    </div>
+    <div class="mb-3">
+        {{ form.last_name.label_tag }}
+        {{ form.last_name }}
+    </div>
+    <div class="mb-3">
+        {{ form.username.label_tag }}
+        {{ form.username }}
+        <div class="form-text" id="id_username_helptext">
+            Обязательное поле. Не более 150 символов. Только буквы, цифры и символы @/./+/-.
+        </div>
+    </div>
+    <div class="mb-3">
+        {{ form.password1.label_tag }}
+        {{ form.password1 }}
+        <div class="form-text" id="id_password1_helptext">
+            <ul>
+                <li>
+                    Ваш пароль должен содержать как минимум 3 символа.
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="mb-3">
+        {{ form.password2.label_tag }}
+        {{ form.password2 }}
+        <div class="form-text" id="id_password2_helptext">
+            Для подтверждения введите, пожалуйста, пароль ещё раз.
+        </div>
+    </div>
     <input class="btn btn-primary" type="submit" value="Зарегистрировать">
 </form>
 {% endblock %}
