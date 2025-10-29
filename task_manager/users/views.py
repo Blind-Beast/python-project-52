@@ -5,7 +5,6 @@ from .forms import SignUpForm, UserUpdateForm
 
 from task_manager.users.models import CustomUser
 
-
 class IndexView(View):
     def get(self, request, *args, **kwargs):
         users = CustomUser.objects.all()
@@ -24,7 +23,19 @@ class UserFormCreateView(View):
             return redirect('login')
         return render(request, 'users/create.html', {'form': form})
 
-class UserFormUpdateView(View):
+class UserCheckMixin:
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            messages.error(request, "Вы не авторизованы! Пожалуйста, выполните вход.")
+            return redirect('login')
+        user_id = kwargs.get("id")
+        if not request.user.id == user_id:
+            messages.error(request, "У вас нет прав для изменения другого пользователя.")
+            return redirect('users')
+        return super().dispatch(request, *args, **kwargs)
+
+
+class UserFormUpdateView(UserCheckMixin, View):
     def get(self, request, *args, **kwargs):
         user_id = kwargs.get("id")
         user = CustomUser.objects.get(id=user_id)
@@ -45,7 +56,7 @@ class UserFormUpdateView(View):
             request, "users/update.html", {"form": form, "user_id": user_id}
         )
 
-class UserFormDeleteView(View):
+class UserFormDeleteView(UserCheckMixin, View):
     def get(self, request, *args, **kwargs):
         user_id = kwargs.get("id")
         user = CustomUser.objects.get(id=user_id)
