@@ -34,7 +34,6 @@ class UserCheckMixin:
             return redirect('users')
         return super().dispatch(request, *args, **kwargs)
 
-
 class UserFormUpdateView(UserCheckMixin, View):
     def get(self, request, *args, **kwargs):
         user_id = kwargs.get("id")
@@ -47,7 +46,7 @@ class UserFormUpdateView(UserCheckMixin, View):
     def post(self, request, *args, **kwargs):
         user_id = kwargs.get("id")
         user = CustomUser.objects.get(id=user_id)
-        form = SignUpForm(request.POST, instance=user)
+        form = UserUpdateForm(request.POST, instance=user)
         if form.is_valid():
             form.save()
             messages.success(request, "Пользователь успешно изменён")
