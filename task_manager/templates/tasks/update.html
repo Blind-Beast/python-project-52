@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="my-4">Изменение задачи</h1>
+<form action="{% url 'tasks_update' id=task_id %}" method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+        {{ form.name.label_tag }}
+        {{ form.name }}
+    </div>
+    <div class="mb-3">
+        {{ form.description.label_tag }}
+        {{ form.description }}
+    </div>
+    <div class="mb-3">
+        {{ form.status.label_tag }}
+        {{ form.status }}
+    </div>
+    <div class="mb-3">
+        {{ form.executor.label_tag }}
+        {{ form.executor }}
+    </div>
+    <input class="btn btn-primary" type="submit" value="Изменить">
+</form>
+{% endblock %}

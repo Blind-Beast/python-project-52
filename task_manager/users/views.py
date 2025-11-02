@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.db.models import ProtectedError 
 from django.views import View
 from .forms import SignUpForm, UserUpdateForm
 
@@ -68,6 +69,9 @@ class UserFormDeleteView(UserCheckMixin, View):
         user_id = kwargs.get("id")
         user = CustomUser.objects.get(id=user_id)
         if user:
-            user.delete()
-        messages.success(request, "Пользователь успешно удалён")
+            try:
+                user.delete()
+                messages.success(request, "Пользователь успешно удалён")
+            except ProtectedError:
+                messages.error(request, "Невозможно удалить пользователя, потому что он используется")
         return redirect("users")
