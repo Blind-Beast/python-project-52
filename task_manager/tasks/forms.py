@@ -2,6 +2,7 @@ from django.forms import ModelForm
 from django import forms
 from .models import Task
 from task_manager.statuses.models import Status
+from task_manager.labels.models import Label
 from task_manager.users.models import CustomUser
 
 
@@ -44,7 +45,14 @@ class TaskForm(ModelForm):
         label_suffix='',
         widget=forms.Select(attrs={'class': 'form-select',})
     )
+
+    labels = forms.ModelMultipleChoiceField(
+        queryset = Label.objects.all(),
+        label="Метки",
+        label_suffix='',
+        widget=forms.SelectMultiple(attrs={'class': 'form-select',})
+    )
     
     class Meta:
         model = Task
-        fields = ["name", "description", "status", "executor"]
+        fields = ["name", "description", "status", "executor", "labels"]
