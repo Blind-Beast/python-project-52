@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
+    'django_filters',
     'task_manager',
     'task_manager.users',
     'task_manager.statuses',
@@ -99,7 +100,7 @@ WSGI_APPLICATION = 'task_manager.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default='postgresql://hexlet52db_user:CNzsdbWg3oF2LC9A7nisrpzJepEE5d2k@dpg-d3h7vkndiees73a8d7qg-a.frankfurt-postgres.render.com/hexlet52db',
+        default='postgresql://django_52_db_user:MajAz3DQHiaBOcNaJ3tjkrGAz54uKQ1l@dpg-d452ohur433s73e3f2n0-a.frankfurt-postgres.render.com/django_52_db',
         conn_max_age=600
     )
     #"default": {

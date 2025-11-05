@@ -3,6 +3,25 @@
 {% block content %}
 <h1 class="my-4">Задачи</h1>
 <a class="btn btn-primary mb-3" href="/tasks/create">Создать задачу</a>
+<div class="card mb-3">
+    <div class="card-body bg-light">
+        <form class="form-inline center" method="get">
+            <div class="mb-3">
+                {{ filter.form.status.label_tag }}
+                {{ filter.form.status }}
+            </div>
+            <div class="mb-3">
+                {{ filter.form.executor.label_tag }}
+                {{ filter.form.executor }}
+            </div>
+            <div class="mb-3">
+                {{ filter.form.labels.label_tag }}
+                {{ filter.form.labels }}
+            </div>
+            <input class="btn btn-primary" type="submit" value="Показать">
+        </form>
+    </div>
+</div>
 <table class="table table-striped">
     <thead>
         <tr>

@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
 from .forms import TaskForm
+from .filters import TaskFilter
 
 from task_manager.tasks.models import Task
 
@@ -11,7 +12,12 @@ class IndexView(LoginRequiredMixin, View):
     
     def get(self, request, *args, **kwargs):
         tasks = Task.objects.all()
-        return render(request, "tasks/index.html", context={"tasks": tasks,})
+        filter = TaskFilter(request.GET, queryset=tasks)
+        tasks = filter.qs
+        return render(
+            request,
+            "tasks/index.html",
+            context={"tasks": tasks, "filter": filter,})
 
 class TaskView(LoginRequiredMixin,View):
     login_url = '/login/'
