@@ -73,9 +73,17 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'rollbar.contrib.django.middleware.RollbarNotifierMiddleware',
 ]
 
 ROOT_URLCONF = 'task_manager.urls'
+
+ROLLBAR = {
+    'access_token': 'c24a38524bdf45059b31a0279ccf57e6',
+    'environment': 'development' if DEBUG else 'production',
+    'code_version': '1.0',
+    'root': BASE_DIR,
+}
 
 TEMPLATES = [
     {
@@ -99,18 +107,14 @@ WSGI_APPLICATION = 'task_manager.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config(
-        default='postgresql://django_52_db_user:MajAz3DQHiaBOcNaJ3tjkrGAz54uKQ1l@dpg-d452ohur433s73e3f2n0-a.frankfurt-postgres.render.com/django_52_db',
-        conn_max_age=600
-    )
-    #"default": {
-        #"ENGINE": "django.db.backends.sqlite3",
-        #"NAME": os.path.join(BASE_DIR, "db.sqlite3"),
-    #}
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+    }
 }
 
-#db_from_env = dj_database_url.config(conn_max_age=600)
-#DATABASES["default"].update(db_from_env)
+db_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES["default"].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
