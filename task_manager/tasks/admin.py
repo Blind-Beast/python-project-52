@@ -1,6 +1,5 @@
 from django.contrib import admin
 from .models import Task
-from task_manager.labels.models import Label
 
 class TaskAdmin(admin.ModelAdmin):
     list_display = [
