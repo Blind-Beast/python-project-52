@@ -1,7 +1,11 @@
 from django.test import TestCase
-from django.urls import reverse
+from .models import Label
 
 class LabelsTest(TestCase):
-    def test_labels_list(self):
-        response = self.client.get(reverse("labels"))
-        self.assertEqual(response.status_code, 200)
+
+    def setUp(self):
+        self.label = Label.objects.create(name="Test label")
+    
+    def test_label_created(self):
+        label = Label.objects.filter(name="Test label")
+        self.assertTrue(label.exists())

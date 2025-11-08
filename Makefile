@@ -17,4 +17,4 @@ shell:
 	uv run manage.py shell_plus --ipython
 
 test:
-	uv run manage.py test
+	uv run manage.py test --verbosity 2

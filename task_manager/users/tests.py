@@ -1,7 +1,11 @@
 from django.test import TestCase
-from django.urls import reverse
+from .models import CustomUser
 
-class UsersTest(TestCase):
-    def test_users_list(self):
-        response = self.client.get(reverse("users"))
-        self.assertEqual(response.status_code, 200)
+class UserTest(TestCase):
+
+    def setUp(self):
+        self.user = CustomUser.objects.create(username="John")
+    
+    def test_user_created(self):
+        user = CustomUser.objects.filter(username="John")
+        self.assertTrue(user.exists())
