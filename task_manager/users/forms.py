@@ -71,8 +71,31 @@ class SignUpForm(UserCreationForm):
         fields = ('first_name', 'last_name', 'username', 'password1', 'password2')
 
 class LoginForm(AuthenticationForm):
-    username = forms.CharField(label='Имя пользователя')
-    password = forms.CharField(label='Пароль', widget=forms.PasswordInput)
+    username = forms.CharField(
+        max_length=150,
+        required=True,
+        label="Имя пользователя",
+        label_suffix='',
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': 'Имя пользователя',
+                'class': 'form-control',
+                'autocomplete': "username",
+            }
+        )
+    )
+    password = forms.CharField(
+        required=True,
+        label="Пароль",
+        label_suffix='',
+        widget=forms.PasswordInput(
+            attrs={
+                'placeholder': 'Пароль',
+                'class': 'form-control',
+                'autocomplete': "current-password",
+            }
+        )
+    )
 
 class UserUpdateForm(forms.ModelForm):
     first_name = forms.CharField(
