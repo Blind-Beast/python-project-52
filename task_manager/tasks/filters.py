@@ -21,6 +21,10 @@ class TaskFilter(django_filters.FilterSet):
         label="Метка",
         widget=forms.Select(attrs={'class': 'form-select'})
     )
+    self_tasks = django_filters.BooleanFilter(
+        label="Только свои задачи",
+        widget=forms.CheckboxInput(attrs={'class': 'form-check-input',})
+    )
        
     class Meta:
         model = Task

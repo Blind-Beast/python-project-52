@@ -45,13 +45,6 @@ class TaskForm(ModelForm):
         label_suffix='',
         widget=forms.Select(attrs={'class': 'form-select',})
     )
-
-    labels = forms.ModelMultipleChoiceField(
-        queryset = Label.objects.all(),
-        label="Метки",
-        label_suffix='',
-        widget=forms.SelectMultiple(attrs={'class': 'form-select',})
-    )
     
     class Meta:
         model = Task
