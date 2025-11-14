@@ -12,7 +12,7 @@ class IndexView(LoginRequiredMixin, View):
     
     def get(self, request, *args, **kwargs):
         tasks = Task.objects.all()
-        filter = TaskFilter(request.GET, queryset=tasks)
+        filter = TaskFilter(request, queryset=tasks)
         tasks = filter.qs
         return render(
             request,

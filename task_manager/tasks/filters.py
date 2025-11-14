@@ -22,10 +22,18 @@ class TaskFilter(django_filters.FilterSet):
         widget=forms.Select(attrs={'class': 'form-select'})
     )
     self_tasks = django_filters.BooleanFilter(
+        field_name="author",
+        method="show_self_tasks",
         label="Только свои задачи",
         widget=forms.CheckboxInput(attrs={'class': 'form-check-input',})
     )
+
+    def show_self_tasks(self, queryset, request, value):
+        if value==True:
+            return queryset.filter(request.user)
+        return queryset
+
        
     class Meta:
         model = Task
-        fields = ['status', 'executor', 'labels']
+        fields = ['status', 'executor', 'labels', "author"]

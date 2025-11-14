@@ -50,7 +50,7 @@ class UserFormUpdateView(UserCheckMixin, View):
         form = UserUpdateForm(request.POST, instance=user)
         if form.is_valid():
             form.save()
-            messages.success(request, "Пользователь успешно изменён")
+            messages.success(request, "Пользователь успешно изменен")
             return redirect("users")
         return render(
             request, "users/update.html", {"form": form, "user_id": user_id}
