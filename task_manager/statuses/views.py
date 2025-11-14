@@ -45,7 +45,7 @@ class StatusFormUpdateView(LoginRequiredMixin, View):
         form = StatusForm(request.POST, instance=status)
         if form.is_valid():
             form.save()
-            messages.success(request, "Статус успешно изменён")
+            messages.success(request, "Статус успешно изменен")
             return redirect("statuses")
         return render(
             request, "statuses/update.html", {"form": form, "status_id": status_id}
@@ -67,5 +67,5 @@ class StatusFormDeleteView(LoginRequiredMixin, View):
         status = Status.objects.get(id=status_id)
         if status:
             status.delete()
-        messages.success(request, "Статус успешно удалён")
+        messages.success(request, "Статус успешно удален")
         return redirect("statuses")
