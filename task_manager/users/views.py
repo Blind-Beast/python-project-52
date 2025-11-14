@@ -71,7 +71,7 @@ class UserFormDeleteView(UserCheckMixin, View):
         if user:
             try:
                 user.delete()
-                messages.success(request, "Пользователь успешно удалён")
+                messages.success(request, "Пользователь успешно удален")
             except ProtectedError:
                 messages.error(request, "Невозможно удалить пользователя, потому что он используется")
         return redirect("users")
