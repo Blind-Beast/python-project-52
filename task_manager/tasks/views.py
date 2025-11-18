@@ -12,12 +12,12 @@ class IndexView(LoginRequiredMixin, View):
     
     def get(self, request, *args, **kwargs):
         tasks = Task.objects.all()
-        filter = TaskFilter(request, queryset=tasks)
-        tasks = filter.qs
+        tasks_filter = TaskFilter(request.GET, queryset=tasks, request=request)
+        tasks = tasks_filter.qs
         return render(
             request,
             "tasks/index.html",
-            context={"tasks": tasks, "filter": filter,})
+            context={"tasks": tasks, "filter": tasks_filter,})
 
 class TaskView(LoginRequiredMixin,View):
     login_url = '/login/'

@@ -28,9 +28,9 @@ class TaskFilter(django_filters.FilterSet):
         widget=forms.CheckboxInput(attrs={'class': 'form-check-input',})
     )
 
-    def show_self_tasks(self, queryset, request, value):
+    def show_self_tasks(self, queryset, name, value):
         if value==True:
-            return queryset.filter(request.user)
+            queryset = queryset.filter(author=self.request.user)
         return queryset
 
        
