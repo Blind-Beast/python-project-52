@@ -41,6 +41,7 @@ class TaskForm(ModelForm):
 
     executor = forms.ModelChoiceField(
         queryset = CustomUser.objects.all(),
+        required=False,
         label="Исполнитель",
         label_suffix='',
         widget=forms.Select(attrs={'class': 'form-select',})
