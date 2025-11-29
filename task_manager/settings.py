@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
+import os
 import dj_database_url
 
 from django.contrib.messages import constants as messages
@@ -34,12 +35,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-#SECRET_KEY = str(os.getenv("SECRET_KEY"))
-SECRET_KEY = 'django-insecure-beeverqlt*$_i3m#j$=n*g1_p#zmx()6bkguue8%=)kjyj8dh%'
+SECRET_KEY = str(os.getenv("SECRET_KEY"))
 
 # SECURITY WARNING: don't run with debug turned on in production!
-#DEBUG = os.getenv("DEBUG", False)
-DEBUG = True
+DEBUG = os.getenv("DEBUG", False)
 
 ALLOWED_HOSTS = [
     "webserver",
@@ -108,14 +107,10 @@ WSGI_APPLICATION = 'task_manager.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config(
-        default='postgresql://django_52_db_user:MajAz3DQHiaBOcNaJ3tjkrGAz54uKQ1l@dpg-d452ohur433s73e3f2n0-a.frankfurt-postgres.render.com/django_52_db',
-        conn_max_age=600
-    )
-    # "default": {
-    #     "ENGINE": "django.db.backends.sqlite3",
-    #     "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
-    # }
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+    }
 }
 
 db_from_env = dj_database_url.config(conn_max_age=600)
