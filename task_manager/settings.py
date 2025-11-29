@@ -107,10 +107,14 @@ WSGI_APPLICATION = 'task_manager.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
-    }
+    'default': dj_database_url.config(
+        default='postgresql://django_52_db_user:MajAz3DQHiaBOcNaJ3tjkrGAz54uKQ1l@dpg-d452ohur433s73e3f2n0-a.frankfurt-postgres.render.com/django_52_db',
+        conn_max_age=600
+    )
+    #"default": {
+    #    "ENGINE": "django.db.backends.sqlite3",
+    #    "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+    #}
 }
 
 db_from_env = dj_database_url.config(conn_max_age=600)
