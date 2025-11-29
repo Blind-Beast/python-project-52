@@ -11,7 +11,7 @@
 Task Manager is a task management system. It allows you to set tasks, assign executors, and change their statuses.
 
 ### Built With
-Python 3.12+
-Django 5.2
-PostgreSQL
-Bootstrap 5
+* Python 3.12+
+* Django 5.2
+* PostgreSQL
+* Bootstrap 5
