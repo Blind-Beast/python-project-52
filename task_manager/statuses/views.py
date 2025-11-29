@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import ProtectedError
 from django.views import View
 from .forms import StatusForm
 
@@ -63,9 +64,16 @@ class StatusFormDeleteView(LoginRequiredMixin, View):
             )
     
     def post(self, request, *args, **kwargs):
-        status_id = kwargs.get("id")
-        status = Status.objects.get(id=status_id)
-        if status:
-            status.delete()
-        messages.success(request, "Статус успешно удален")
-        return redirect("statuses")
+        try:
+            status_id = kwargs.get("id")
+            status = Status.objects.get(id=status_id)
+            if status:
+                status.delete()
+            messages.success(request, "Статус успешно удален")
+            return redirect("statuses")
+        except ProtectedError:
+            messages.error(
+                request,
+                "Невозможно удалить статус, потому что он используется"
+            )
+            return redirect('statuses')
