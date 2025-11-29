@@ -1,5 +1,6 @@
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django import forms
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+
 from .models import CustomUser
 
 
@@ -10,7 +11,7 @@ class SignUpForm(UserCreationForm):
         label="Имя",
         label_suffix='',
         widget=forms.TextInput(
-            attrs={'placeholder': 'Имя', 'class': 'form-control',}
+            attrs={'placeholder': 'Имя', 'class': 'form-control', }
         )
     )
     last_name = forms.CharField(
@@ -19,7 +20,7 @@ class SignUpForm(UserCreationForm):
         label="Фамилия",
         label_suffix='',
         widget=forms.TextInput(
-            attrs={'placeholder': 'Фамилия', 'class': 'form-control',}
+            attrs={'placeholder': 'Фамилия', 'class': 'form-control', }
         )
     )
     username = forms.CharField(
@@ -68,7 +69,14 @@ class SignUpForm(UserCreationForm):
     
     class Meta:
         model = CustomUser
-        fields = ('first_name', 'last_name', 'username', 'password1', 'password2')
+        fields = (
+            'first_name',
+            'last_name',
+            'username',
+            'password1',
+            'password2'
+        )
+
 
 class LoginForm(AuthenticationForm):
     username = forms.CharField(
@@ -97,6 +105,7 @@ class LoginForm(AuthenticationForm):
         )
     )
 
+
 class UserUpdateForm(forms.ModelForm):
     first_name = forms.CharField(
         max_length=150,
@@ -104,7 +113,7 @@ class UserUpdateForm(forms.ModelForm):
         label="Имя",
         label_suffix='',
         widget=forms.TextInput(
-            attrs={'placeholder': 'Имя', 'class': 'form-control',}
+            attrs={'placeholder': 'Имя', 'class': 'form-control', }
         )
     )
     last_name = forms.CharField(
@@ -113,7 +122,7 @@ class UserUpdateForm(forms.ModelForm):
         label="Фамилия",
         label_suffix='',
         widget=forms.TextInput(
-            attrs={'placeholder': 'Фамилия', 'class': 'form-control',}
+            attrs={'placeholder': 'Фамилия', 'class': 'form-control', }
         )
     )
     username = forms.CharField(
@@ -162,4 +171,10 @@ class UserUpdateForm(forms.ModelForm):
     
     class Meta:
         model = CustomUser
-        fields = ('first_name', 'last_name', 'username', 'password1', 'password2')
+        fields = (
+            'first_name',
+            'last_name',
+            'username',
+            'password1',
+            'password2'
+        )

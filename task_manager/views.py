@@ -1,7 +1,8 @@
-from django.shortcuts import render, redirect
-from .users.forms import LoginForm
 from django.contrib import messages
-from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth import authenticate, login, logout
+from django.shortcuts import redirect, render
+
+from .users.forms import LoginForm
 
 
 def index(request):
@@ -20,6 +21,7 @@ def login_view(request):
                 messages.success(request, "Вы залогинены")
                 return redirect('/')
     return render(request, 'login.html', {'form': form})
+
 
 def logout_view(request):
     logout(request)

@@ -1,5 +1,6 @@
-from django.forms import ModelForm
 from django import forms
+from django.forms import ModelForm
+
 from .models import Status
 
 
@@ -10,7 +11,7 @@ class StatusForm(ModelForm):
         label="Имя",
         label_suffix='',
         widget=forms.TextInput(
-            attrs={'placeholder': 'Имя', 'class': 'form-control',}
+            attrs={'placeholder': 'Имя', 'class': 'form-control', }
         )
     )
     

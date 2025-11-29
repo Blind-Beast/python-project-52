@@ -1,15 +1,18 @@
-from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.db.models import ProtectedError 
+from django.db.models import ProtectedError
+from django.shortcuts import redirect, render
 from django.views import View
-from .forms import SignUpForm, UserUpdateForm
 
 from task_manager.users.models import CustomUser
+
+from .forms import SignUpForm, UserUpdateForm
+
 
 class IndexView(View):
     def get(self, request, *args, **kwargs):
         users = CustomUser.objects.all()
-        return render(request, "users/index.html", context={"users": users,})
+        return render(request, "users/index.html", context={"users": users, })
+
 
 class UserFormCreateView(View):
     def get(self, request, *args, **kwargs):
@@ -24,16 +27,24 @@ class UserFormCreateView(View):
             return redirect('login')
         return render(request, 'users/create.html', {'form': form})
 
+
 class UserCheckMixin:
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
-            messages.error(request, "Вы не авторизованы! Пожалуйста, выполните вход.")
+            messages.error(
+                request,
+                "Вы не авторизованы! Пожалуйста, выполните вход."
+            )
             return redirect('login')
         user_id = kwargs.get("id")
         if not request.user.id == user_id:
-            messages.error(request, "У вас нет прав для изменения другого пользователя.")
+            messages.error(
+                request,
+                "У вас нет прав для изменения другого пользователя."
+            )
             return redirect('users')
         return super().dispatch(request, *args, **kwargs)
+
 
 class UserFormUpdateView(UserCheckMixin, View):
     def get(self, request, *args, **kwargs):
@@ -56,6 +67,7 @@ class UserFormUpdateView(UserCheckMixin, View):
             request, "users/update.html", {"form": form, "user_id": user_id}
         )
 
+
 class UserFormDeleteView(UserCheckMixin, View):
     def get(self, request, *args, **kwargs):
         user_id = kwargs.get("id")
@@ -73,5 +85,9 @@ class UserFormDeleteView(UserCheckMixin, View):
                 user.delete()
                 messages.success(request, "Пользователь успешно удален")
             except ProtectedError:
-                messages.error(request, "Невозможно удалить пользователя, потому что он используется")
+                messages.error(
+                    request,
+                    """Невозможно удалить пользователя, """
+                    """потому что он используется"""
+                )
         return redirect("users")

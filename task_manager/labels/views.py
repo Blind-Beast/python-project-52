@@ -1,18 +1,24 @@
-from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db.models import ProtectedError
+from django.shortcuts import redirect, render
 from django.views import View
-from .forms import LabelForm
 
 from task_manager.labels.models import Label
+
+from .forms import LabelForm
+
 
 class IndexView(LoginRequiredMixin, View):
     login_url = '/login/'
     
     def get(self, request, *args, **kwargs):
         labels = Label.objects.all()
-        return render(request, "labels/index.html", context={"labels": labels,})
+        return render(
+            request,
+            "labels/index.html",
+            context={"labels": labels, }
+        )
+
 
 class LabelFormCreateView(LoginRequiredMixin, View):
     login_url = '/login/'
@@ -28,6 +34,7 @@ class LabelFormCreateView(LoginRequiredMixin, View):
             messages.success(request, "Метка успешно создана")
             return redirect('labels')
         return render(request, 'labels/create.html', {'form': form})
+
 
 class LabelFormUpdateView(LoginRequiredMixin, View):
     login_url = '/login/'
@@ -51,6 +58,7 @@ class LabelFormUpdateView(LoginRequiredMixin, View):
         return render(
             request, "labels/update.html", {"form": form, "label_id": label_id}
         )
+
 
 class LabelFormDeleteView(LoginRequiredMixin, View):
     login_url = '/login/'

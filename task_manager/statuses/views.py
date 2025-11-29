@@ -1,18 +1,25 @@
-from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import ProtectedError
+from django.shortcuts import redirect, render
 from django.views import View
-from .forms import StatusForm
 
 from task_manager.statuses.models import Status
+
+from .forms import StatusForm
+
 
 class IndexView(LoginRequiredMixin, View):
     login_url = '/login/'
     
     def get(self, request, *args, **kwargs):
         statuses = Status.objects.all()
-        return render(request, "statuses/index.html", context={"statuses": statuses,})
+        return render(
+            request,
+            "statuses/index.html",
+            context={"statuses": statuses, }
+        )
+
 
 class StatusFormCreateView(LoginRequiredMixin, View):
     login_url = '/login/'
@@ -29,6 +36,7 @@ class StatusFormCreateView(LoginRequiredMixin, View):
             return redirect('statuses')
         return render(request, 'statuses/create.html', {'form': form})
 
+
 class StatusFormUpdateView(LoginRequiredMixin, View):
     login_url = '/login/'
     
@@ -37,7 +45,9 @@ class StatusFormUpdateView(LoginRequiredMixin, View):
         status = Status.objects.get(id=status_id)
         form = StatusForm(instance=status)
         return render(
-            request, "statuses/update.html", {"form": form, "status_id": status_id}
+            request,
+            "statuses/update.html",
+            {"form": form, "status_id": status_id}
         )
     
     def post(self, request, *args, **kwargs):
@@ -49,8 +59,11 @@ class StatusFormUpdateView(LoginRequiredMixin, View):
             messages.success(request, "Статус успешно изменен")
             return redirect("statuses")
         return render(
-            request, "statuses/update.html", {"form": form, "status_id": status_id}
+            request,
+            "statuses/update.html",
+            {"form": form, "status_id": status_id}
         )
+
 
 class StatusFormDeleteView(LoginRequiredMixin, View):
     login_url = '/login/'

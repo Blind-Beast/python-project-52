@@ -1,9 +1,11 @@
 import django_filters
 from django import forms
-from task_manager.statuses.models import Status
+
 from task_manager.labels.models import Label
+from task_manager.statuses.models import Status
 from task_manager.tasks.models import Task
 from task_manager.users.models import CustomUser
+
 
 class TaskFilter(django_filters.FilterSet):
     status = django_filters.ModelChoiceFilter(
@@ -29,15 +31,14 @@ class TaskFilter(django_filters.FilterSet):
         method="show_self_tasks",
         label="Только свои задачи",
         label_suffix='',
-        widget=forms.CheckboxInput(attrs={'class': 'form-check-input',})
+        widget=forms.CheckboxInput(attrs={'class': 'form-check-input', })
     )
 
     def show_self_tasks(self, queryset, name, value):
-        if value==True:
+        if value:
             queryset = queryset.filter(author=self.request.user)
         return queryset
 
-       
     class Meta:
         model = Task
         fields = ['status', 'executor', 'labels', "author"]

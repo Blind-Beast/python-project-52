@@ -1,9 +1,11 @@
-from django.forms import ModelForm
 from django import forms
-from .models import Task
-from task_manager.statuses.models import Status
+from django.forms import ModelForm
+
 from task_manager.labels.models import Label
+from task_manager.statuses.models import Status
 from task_manager.users.models import CustomUser
+
+from .models import Task
 
 
 class TaskForm(ModelForm):
@@ -13,7 +15,7 @@ class TaskForm(ModelForm):
         label="Имя",
         label_suffix='',
         widget=forms.TextInput(
-            attrs={'placeholder': 'Имя', 'class': 'form-control',}
+            attrs={'placeholder': 'Имя', 'class': 'form-control', }
         )
     )
 
@@ -32,27 +34,27 @@ class TaskForm(ModelForm):
     )
 
     status = forms.ModelChoiceField(
-        queryset = Status.objects.all(),
+        queryset=Status.objects.all(),
         required=True,
         label="Статус",
         label_suffix='',
-        widget=forms.Select(attrs={'class': 'form-select',})
+        widget=forms.Select(attrs={'class': 'form-select', })
     )
 
     executor = forms.ModelChoiceField(
-        queryset = CustomUser.objects.all(),
+        queryset=CustomUser.objects.all(),
         required=False,
         label="Исполнитель",
         label_suffix='',
-        widget=forms.Select(attrs={'class': 'form-select',})
+        widget=forms.Select(attrs={'class': 'form-select', })
     )
 
     labels = forms.ModelMultipleChoiceField(
-        queryset = Label.objects.all(),
+        queryset=Label.objects.all(),
         required=False,
         label="Метки",
         label_suffix='',
-        widget=forms.SelectMultiple(attrs={'class': 'form-select',})
+        widget=forms.SelectMultiple(attrs={'class': 'form-select', })
     )
     
     class Meta:

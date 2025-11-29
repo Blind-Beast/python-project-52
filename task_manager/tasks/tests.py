@@ -1,6 +1,9 @@
 from django.test import TestCase
-from .models import Task
+
 from task_manager.users.models import CustomUser
+
+from .models import Task
+
 
 class TasksTest(TestCase):
 
