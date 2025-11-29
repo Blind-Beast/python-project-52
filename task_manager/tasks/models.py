@@ -14,6 +14,7 @@ class Task(models.Model):
     )
     labels = models.ManyToManyField(
         Label,
+        related_name='tasks',
         blank=True
     )
     author = models.ForeignKey(

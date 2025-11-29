@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import ProtectedError
 from django.views import View
 from .forms import LabelForm
 
@@ -65,7 +66,16 @@ class LabelFormDeleteView(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
         label_id = kwargs.get("id")
         label = Label.objects.get(id=label_id)
+        if label.tasks.exists():
+            messages.error(
+                request,
+                "Невозможно удалить метку, потому что она используется"
+            )
+            return redirect("labels")
         if label:
             label.delete()
         messages.success(request, "Метка успешно удалена")
         return redirect("labels")
+        
+        
+            
