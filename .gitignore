@@ -1,8 +1,13 @@
 .venv/
 __pycache__/
 dist/
+*.pyc
 *.cast
-.pytest_cache
+.vscode/
+.coverage
+coverage.xml
+.pytest_cache/
 .ruff_cache
+*_cache/
 .env
 db.sqlite3

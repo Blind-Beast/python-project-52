@@ -2,12 +2,11 @@
 import pytest
 from django.contrib.auth import get_user_model
 from django.urls import reverse
-#from django.test import TestCase
 
+# from django.test import TestCase
 from task_manager.labels.models import Label
 from task_manager.statuses.models import Status
 from task_manager.tasks.models import Task
-
 
 # class LabelsTest(TestCase):
 
@@ -40,7 +39,7 @@ class TestLabelViews:
         return Label.objects.create(name='Label')
 
     def test_label_list_view(self, logged_client, label):
-        response = logged_client.get(reverse('labels_index'))
+        response = logged_client.get(reverse('labels'))
         assert response.status_code == 200
         assert 'Label' in response.content.decode()
 
