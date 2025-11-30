@@ -8,15 +8,6 @@ from task_manager.labels.models import Label
 from task_manager.statuses.models import Status
 from task_manager.tasks.models import Task
 
-# class LabelsTest(TestCase):
-
-#     def setUp(self):
-#         self.label = Label.objects.create(name="Test label")
-    
-#     def test_label_created(self):
-#         label = Label.objects.filter(name="Test label")
-#         self.assertTrue(label.exists())
-
 User = get_user_model()
 
 
