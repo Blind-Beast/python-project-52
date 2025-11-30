@@ -7,9 +7,6 @@ dev-install:
 migrate:
 	uv run python manage.py migrate
 
-collectstatic:
-	uv run python manage.py collectstatic --noinput
-
 lint:
 	uv run ruff check .
 
