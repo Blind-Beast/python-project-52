@@ -1,7 +1,8 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block content %}
-<h1 class="my-4">Регистрация</h1>
+<h1 class="my-4">{% trans "Registration" %}</h1>
 <form action="{% url 'users_create' %}" method="post">
     {% csrf_token %}
     <div class="mb-3">
@@ -16,7 +17,7 @@
         {{ form.username.label_tag }}
         {{ form.username }}
         <div class="form-text" id="id_username_helptext">
-            Обязательное поле. Не более 150 символов. Только буквы, цифры и символы @/./+/-.
+            {% trans "Required field. No more than 150 characters. Only letters, numbers, and symbols @/./+/-." %}
         </div>
     </div>
     <div class="mb-3">
@@ -25,7 +26,7 @@
         <div class="form-text" id="id_password1_helptext">
             <ul>
                 <li>
-                    Ваш пароль должен содержать как минимум 3 символа.
+                    {% trans "Your password must contain at least 3 characters." %}
                 </li>
             </ul>
         </div>
@@ -34,9 +35,9 @@
         {{ form.password2.label_tag }}
         {{ form.password2 }}
         <div class="form-text" id="id_password2_helptext">
-            Для подтверждения введите, пожалуйста, пароль ещё раз.
+            {% trans "Please enter the password again to confirm." %}
         </div>
     </div>
-    <input class="btn btn-primary" type="submit" value="Зарегистрировать">
+    <input class="btn btn-primary" type="submit" value="{% trans 'Register' %}">
 </form>
 {% endblock %}

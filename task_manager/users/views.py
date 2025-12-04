@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.db.models import ProtectedError
 from django.shortcuts import redirect, render
+from django.utils.translation import gettext_lazy as _
 from django.views import View
 
 from task_manager.users.models import CustomUser
@@ -23,7 +24,7 @@ class UserFormCreateView(View):
         form = SignUpForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, "Пользователь успешно зарегистрирован")
+            messages.success(request, _('User created successfully'))
             return redirect('login')
         return render(request, 'users/create.html', {'form': form})
 
@@ -33,14 +34,14 @@ class UserCheckMixin:
         if not request.user.is_authenticated:
             messages.error(
                 request,
-                "Вы не авторизованы! Пожалуйста, выполните вход."
+                _("You are not logged in! Please log in.")
             )
             return redirect('login')
         user_id = kwargs.get("id")
         if not request.user.id == user_id:
             messages.error(
                 request,
-                "У вас нет прав для изменения другого пользователя."
+                _("You do not have permission to perform this action.")
             )
             return redirect('users')
         return super().dispatch(request, *args, **kwargs)
@@ -61,7 +62,7 @@ class UserFormUpdateView(UserCheckMixin, View):
         form = UserUpdateForm(request.POST, instance=user)
         if form.is_valid():
             form.save()
-            messages.success(request, "Пользователь успешно изменен")
+            messages.success(request, _('User updated successfully'))
             return redirect("users")
         return render(
             request, "users/update.html", {"form": form, "user_id": user_id}
@@ -83,11 +84,11 @@ class UserFormDeleteView(UserCheckMixin, View):
         if user:
             try:
                 user.delete()
-                messages.success(request, "Пользователь успешно удален")
+                messages.success(request, _('User deleted successfully'))
             except ProtectedError:
                 messages.error(
                     request,
-                    """Невозможно удалить пользователя, """
-                    """потому что он используется"""
+                    _("It is impossible to delete the user \
+                    because it is being used")
                 )
         return redirect("users")

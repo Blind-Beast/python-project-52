@@ -1,5 +1,6 @@
 from django import forms
 from django.forms import ModelForm
+from django.utils.translation import gettext_lazy as _
 
 from task_manager.labels.models import Label
 from task_manager.statuses.models import Status
@@ -12,20 +13,20 @@ class TaskForm(ModelForm):
     name = forms.CharField(
         max_length=150,
         required=True,
-        label="Имя",
+        label=_("Name"),
         label_suffix='',
         widget=forms.TextInput(
-            attrs={'placeholder': 'Имя', 'class': 'form-control', }
+            attrs={'placeholder': _("Name"), 'class': 'form-control', }
         )
     )
 
     description = forms.CharField(
         max_length=255,
-        label="Описание",
+        label=_("Description"),
         label_suffix='',
         widget=forms.Textarea(
             attrs={
-                'placeholder': 'Описание',
+                'placeholder': _("Description"),
                 'class': 'form-control',
                 'cols': '40',
                 'rows': '10'
@@ -36,7 +37,7 @@ class TaskForm(ModelForm):
     status = forms.ModelChoiceField(
         queryset=Status.objects.all(),
         required=True,
-        label="Статус",
+        label=_('Status'),
         label_suffix='',
         widget=forms.Select(attrs={'class': 'form-select', })
     )
@@ -44,7 +45,7 @@ class TaskForm(ModelForm):
     executor = forms.ModelChoiceField(
         queryset=CustomUser.objects.all(),
         required=False,
-        label="Исполнитель",
+        label=_('Executor'),
         label_suffix='',
         widget=forms.Select(attrs={'class': 'form-select', })
     )
@@ -52,7 +53,7 @@ class TaskForm(ModelForm):
     labels = forms.ModelMultipleChoiceField(
         queryset=Label.objects.all(),
         required=False,
-        label="Метки",
+        label=_('Labels'),
         label_suffix='',
         widget=forms.SelectMultiple(attrs={'class': 'form-select', })
     )

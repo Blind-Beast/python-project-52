@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect, render
+from django.utils.translation import gettext_lazy as _
 from django.views import View
 
 from task_manager.labels.models import Label
@@ -31,7 +32,7 @@ class LabelFormCreateView(LoginRequiredMixin, View):
         form = LabelForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, "Метка успешно создана")
+            messages.success(request, _("Label created successfully"))
             return redirect('labels')
         return render(request, 'labels/create.html', {'form': form})
 
@@ -53,7 +54,7 @@ class LabelFormUpdateView(LoginRequiredMixin, View):
         form = LabelForm(request.POST, instance=label)
         if form.is_valid():
             form.save()
-            messages.success(request, "Метка успешно изменена")
+            messages.success(request, _("Label updated successfully"))
             return redirect("labels")
         return render(
             request, "labels/update.html", {"form": form, "label_id": label_id}
@@ -77,12 +78,12 @@ class LabelFormDeleteView(LoginRequiredMixin, View):
         if label.tasks.exists():
             messages.error(
                 request,
-                "Невозможно удалить метку, потому что она используется"
+                _("It is impossible to delete the label because it is being")
             )
             return redirect("labels")
         if label:
             label.delete()
-        messages.success(request, "Метка успешно удалена")
+        messages.success(request, _("Label deleted successfully"))
         return redirect("labels")
         
         

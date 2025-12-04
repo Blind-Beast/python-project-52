@@ -1,10 +1,17 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block content %}
-<h1 class="my-4">Удаление метки</h1>
-<p>Вы уверены, что хотите удалить {{ label.name }}?</p>
+<h1 class="my-4">{% trans "Delete label" %}</h1>
+<p>
+    {% blocktrans %}
+    Are you sure you want to delete {{ label }}?
+    {% endblocktrans %}
+</p>
 <form action="{% url 'labels_delete' label.id %}" method="post">
     {% csrf_token %}
-    <input class="btn btn-danger" type="submit" value="Да, удалить">
+    <button type="submit" class="btn btn-danger">
+        {% trans "Yes, delete" %}
+    </button>
 </form>
 {% endblock %}

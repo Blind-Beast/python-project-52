@@ -1,13 +1,14 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block content %}
-<h1 class="my-4">Изменение метки</h1>
+<h1 class="my-4">{% trans "Edit label" %}</h1>
 <form action="{% url 'labels_update' id=label_id %}" method="post">
     {% csrf_token %}
     <div class="mb-3">
         {{ form.name.label_tag }}
         {{ form.name }}
     </div>
-    <input class="btn btn-primary" type="submit" value="Изменить">
+    <button type="submit" class="btn btn-primary">{% trans "Update" %}</button>
 </form>
 {% endblock %}

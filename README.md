@@ -15,3 +15,24 @@ Task Manager is a task management system. It allows you to set tasks, assign exe
 * Django 5.2
 * PostgreSQL
 * Bootstrap 5
+
+### Setup and Installation
+1. Clone the repository
+   ```bash
+   git@github.com:Blind-Beast/python-project-52.git
+3. Install dependencies:
+   ```bash
+   make install
+4. Start the application:
+   ```bash
+   make run
+
+### Development
+
+- Run tests:
+  ```bash
+  make test
+  ```
+- Check code style:
+  ```bash
+  make lint

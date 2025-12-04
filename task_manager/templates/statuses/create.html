@@ -1,13 +1,14 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block content %}
-<h1 class="my-4">Создать статус</h1>
+<h1 class="my-4">{% trans "Create status" %}</h1>
 <form action="{% url 'statuses_create' %}" method="post">
     {% csrf_token %}
     <div class="mb-3">
         {{ form.name.label_tag }}
         {{ form.name }}
     </div>
-    <input class="btn btn-primary" type="submit" value="Создать">
+    <button type="submit" class="btn btn-primary">{% trans "Create" %}</button>
 </form>
 {% endblock %}

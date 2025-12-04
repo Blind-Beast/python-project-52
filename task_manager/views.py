@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect, render
+from django.utils.translation import gettext_lazy as _
 
 from .users.forms import LoginForm
 
@@ -18,12 +19,12 @@ def login_view(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                messages.success(request, "Вы залогинены")
+                messages.success(request, _("You are logged in"))
                 return redirect('/')
     return render(request, 'login.html', {'form': form})
 
 
 def logout_view(request):
     logout(request)
-    messages.success(request, "Вы разлогинены")
+    messages.success(request, _("You are logged out"))
     return redirect('/')

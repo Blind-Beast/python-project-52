@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, redirect, render
+from django.utils.translation import gettext_lazy as _
 from django.views import View
 
 from task_manager.tasks.models import Task
@@ -44,7 +45,7 @@ class TaskFormCreateView(LoginRequiredMixin, View):
             task.author = request.user
             task.save()
             form.save_m2m()
-            messages.success(request, "Задача успешно создана")
+            messages.success(request, _("Task successfully created"))
             return redirect('tasks')
         return render(request, 'tasks/create.html', {'form': form})
 
@@ -66,7 +67,7 @@ class TaskFormUpdateView(LoginRequiredMixin, View):
         form = TaskForm(request.POST, instance=task)
         if form.is_valid():
             form.save()
-            messages.success(request, "Задача успешно изменена")
+            messages.success(request, _("Task successfully updated"))
             return redirect("tasks")
         return render(
             request, "tasks/update.html", {"form": form, "task_id": task_id}
@@ -80,7 +81,7 @@ class TaskFormDeleteView(LoginRequiredMixin, View):
         task_id = kwargs.get("id")
         task = Task.objects.get(id=task_id)
         if not task.author.id == request.user.id:
-            messages.error(request, "Задачу может удалить только ее автор")
+            messages.error(request, _("Only the author can delete an issue."))
             return redirect('tasks')
         if task:
             return render(
@@ -91,9 +92,9 @@ class TaskFormDeleteView(LoginRequiredMixin, View):
         task_id = kwargs.get("id")
         task = Task.objects.get(id=task_id)
         if not task.author.id == request.user.id:
-            messages.error(request, "Задачу может удалить только ее автор")
+            messages.error(request, _("Only the author can delete an issue."))
             return redirect('tasks')
         if task:
             task.delete()
-        messages.success(request, "Задача успешно удалена")
+        messages.success(request, _("Task successfully deleted"))
         return redirect("tasks")

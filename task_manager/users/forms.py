@@ -1,4 +1,5 @@
 from django import forms
+from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 
 from .models import CustomUser
@@ -8,29 +9,29 @@ class SignUpForm(UserCreationForm):
     first_name = forms.CharField(
         max_length=150,
         required=True,
-        label="Имя",
+        label=_("First name"),
         label_suffix='',
         widget=forms.TextInput(
-            attrs={'placeholder': 'Имя', 'class': 'form-control', }
+            attrs={'placeholder': _("First name"), 'class': 'form-control', }
         )
     )
     last_name = forms.CharField(
         max_length=150,
         required=True,
-        label="Фамилия",
+        label=_("Last name"),
         label_suffix='',
         widget=forms.TextInput(
-            attrs={'placeholder': 'Фамилия', 'class': 'form-control', }
+            attrs={'placeholder': _("Last name"), 'class': 'form-control', }
         )
     )
     username = forms.CharField(
         max_length=150,
         required=True,
-        label="Имя пользователя",
+        label=_("Username"),
         label_suffix='',
         widget=forms.TextInput(
             attrs={
-                'placeholder': 'Имя пользователя',
+                'placeholder': _("Username"),
                 'class': 'form-control',
                 'aria-describedby': "id_username_helptext",
             }
@@ -39,11 +40,11 @@ class SignUpForm(UserCreationForm):
     password1 = forms.CharField(
         max_length=150,
         required=True,
-        label="Пароль",
+        label=_("Password"),
         label_suffix='',
         widget=forms.PasswordInput(
             attrs={
-                'placeholder': 'Пароль',
+                'placeholder': _("Password"),
                 'class': 'form-control',
                 'autocomplete': "new-password",
                 'id': 'id_password1',
@@ -54,11 +55,11 @@ class SignUpForm(UserCreationForm):
     password2 = forms.CharField(
         max_length=150,
         required=True,
-        label="Подтверждение пароля",
+        label=_("Confirm Password"),
         label_suffix='',
         widget=forms.PasswordInput(
             attrs={
-                'placeholder': 'Подтверждение пароля',
+                'placeholder': _("Confirm Password"),
                 'class': 'form-control',
                 'autocomplete': "new-password",
                 'id': 'id_password2',
@@ -82,11 +83,11 @@ class LoginForm(AuthenticationForm):
     username = forms.CharField(
         max_length=150,
         required=True,
-        label="Имя пользователя",
+        label=_("Username"),
         label_suffix='',
         widget=forms.TextInput(
             attrs={
-                'placeholder': 'Имя пользователя',
+                'placeholder': _("Username"),
                 'class': 'form-control',
                 'autocomplete': "username",
             }
@@ -94,11 +95,11 @@ class LoginForm(AuthenticationForm):
     )
     password = forms.CharField(
         required=True,
-        label="Пароль",
+        label=_("Password"),
         label_suffix='',
         widget=forms.PasswordInput(
             attrs={
-                'placeholder': 'Пароль',
+                'placeholder': _("Password"),
                 'class': 'form-control',
                 'autocomplete': "current-password",
             }
@@ -110,29 +111,29 @@ class UserUpdateForm(forms.ModelForm):
     first_name = forms.CharField(
         max_length=150,
         required=True,
-        label="Имя",
+        label=_("First name"),
         label_suffix='',
         widget=forms.TextInput(
-            attrs={'placeholder': 'Имя', 'class': 'form-control', }
+            attrs={'placeholder': _("First name"), 'class': 'form-control', }
         )
     )
     last_name = forms.CharField(
         max_length=150,
         required=True,
-        label="Фамилия",
+        label=_("Last name"),
         label_suffix='',
         widget=forms.TextInput(
-            attrs={'placeholder': 'Фамилия', 'class': 'form-control', }
+            attrs={'placeholder': _("Last name"), 'class': 'form-control', }
         )
     )
     username = forms.CharField(
         max_length=150,
         required=True,
-        label="Имя пользователя",
+        label=_("Username"),
         label_suffix='',
         widget=forms.TextInput(
             attrs={
-                'placeholder': 'Имя пользователя',
+                'placeholder': _("Username"),
                 'class': 'form-control',
                 'aria-describedby': "id_username_helptext",
             }
@@ -141,11 +142,11 @@ class UserUpdateForm(forms.ModelForm):
     password1 = forms.CharField(
         max_length=150,
         required=True,
-        label="Пароль",
+        label=_("Password"),
         label_suffix='',
         widget=forms.PasswordInput(
             attrs={
-                'placeholder': 'Пароль',
+                'placeholder': _("Password"),
                 'class': 'form-control',
                 'autocomplete': "new-password",
                 'id': 'id_password1',
@@ -156,11 +157,11 @@ class UserUpdateForm(forms.ModelForm):
     password2 = forms.CharField(
         max_length=150,
         required=True,
-        label="Подтверждение пароля",
+        label=_("Confirm Password"),
         label_suffix='',
         widget=forms.PasswordInput(
             attrs={
-                'placeholder': 'Подтверждение пароля',
+                'placeholder': _("Confirm Password"),
                 'class': 'form-control',
                 'autocomplete': "new-password",
                 'id': 'id_password2',

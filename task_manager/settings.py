@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
+    'django_bootstrap5',
     'django_filters',
     'task_manager',
     'task_manager.users',
@@ -68,6 +69,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -108,7 +110,7 @@ WSGI_APPLICATION = 'task_manager.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default='postgresql://django_52_db_user:MajAz3DQHiaBOcNaJ3tjkrGAz54uKQ1l@dpg-d452ohur433s73e3f2n0-a.frankfurt-postgres.render.com/django_52_db',
+        default='postgresql://db_django_52_user:BosgctE8a5lGNJ19zhgx30JpumMFP72U@dpg-d4osghi4d50c73aifi2g-a.frankfurt-postgres.render.com/db_django_52',
         conn_max_age=600
     )
     #"default": {
@@ -142,7 +144,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-ru'
+
+LOCALE_PATHS = [BASE_DIR / 'locale']
 
 TIME_ZONE = 'UTC'
 
